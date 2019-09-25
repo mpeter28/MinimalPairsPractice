@@ -1,0 +1,15 @@
+{
+  "name": "MinimalPairs",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": ""
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "css-loader": "^3.2.0",
+    "less-loader": "^5.0.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9"
+  }
+}
