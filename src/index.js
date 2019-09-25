@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import MinimalPairs from './MinimalPairs.js';
 
 ReactDOM.render(
-  ( <p>Hello World</p> ),
-  document.getElementById('root')
+    <MinimalPairs pairs={[]}/>,
+    document.getElementById('root')
 );
