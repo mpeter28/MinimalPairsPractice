@@ -4,11 +4,11 @@ import MinimalPairs from './MinimalPairs.js';
 
 const pairs = [
     {
-        name: "langes e / kurzes e",
-        optionOneName: "langes e",
-        optionOneAudioUrl: "",
-        optionTwoName: "kurzes e",
-        optionTwoAudioUrl: "",
+        name: "voiceless bilabial plosive / voiced bilabial plosive",
+        optionOneName: "p",
+        optionOneAudioUrl: "https://upload.wikimedia.org/wikipedia/commons/5/51/Voiceless_bilabial_plosive.ogg",
+        optionTwoName: "b",
+        optionTwoAudioUrl: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Voiced_bilabial_plosive.ogg",
     },
 
 ];
