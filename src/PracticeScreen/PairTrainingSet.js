@@ -18,6 +18,7 @@ export default class PairTrainingSet extends Component {
     state = {
         successCount: 0,
         failureCount: 0,
+        round: 0,
         waitingToStart: true,
         lastGuessSuccess: true,
         useFirstOption: Math.random() > 0.5,
@@ -36,7 +37,6 @@ export default class PairTrainingSet extends Component {
         if (this.state.waitingToStart) {
             if (this.state.successCount === 0 && this.state.failureCount === 0) { // Start screen
                 return <div>
-                    { this.getAudioPlayer() }
                     { this.getStartButton() }
                 </div>;
 
@@ -85,7 +85,8 @@ export default class PairTrainingSet extends Component {
     }
 
     getStartButton() {
-        return <button className="pairTrainingSet-startButton" onClick={() => this.setState({ waitingToStart: false })}>
+        return <button className="pairTrainingSet-startButton" onClick={() => this.setState({ waitingToStart: false,
+                    useFirstOption: Math.random() > 0.5, round: this.state.round + 1})}>
             Begin
         </button>;
     }
@@ -98,7 +99,7 @@ export default class PairTrainingSet extends Component {
     }
 
     getAudioPlayer() {
-        return <audio controls autoPlay={true} className="pairTrainingSet-audioPlayer">
+        return <audio key={this.state.round} controls autoPlay={true} className="pairTrainingSet-audioPlayer">
             <source src={this.getTestAudioUrl()} type="audio/ogg" />
             Your browser does not support the audio element.
         </audio>;
@@ -132,7 +133,6 @@ export default class PairTrainingSet extends Component {
                     failureCount: state.failureCount + (state.useFirstOption ? 0 : 1),
                     waitingToStart: true,
                     lastGuessSuccess: state.useFirstOption,
-                    useFirstOption: Math.random() > 0.5,
                 }
             });
         }
@@ -146,7 +146,6 @@ export default class PairTrainingSet extends Component {
                     failureCount: state.failureCount + (state.useFirstOption ? 1 : 0),
                     waitingToStart: true,
                     lastGuessSuccess: !state.useFirstOption,
-                    useFirstOption: Math.random() > 0.5,
                 }
             });
         }
