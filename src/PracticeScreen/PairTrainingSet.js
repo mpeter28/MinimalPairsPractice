@@ -40,7 +40,7 @@ export default class PairTrainingSet extends Component {
                     { this.getStartButton() }
                 </div>;
 
-            } else if (this.state.successCount === 0 + this.state.failureCount === 20) { // End screen
+            } else if (this.state.successCount + this.state.failureCount === 20) { // End screen
                 return <div>
                     { this.getAudioPlayer() }
                     { this.getScoreCard() }
