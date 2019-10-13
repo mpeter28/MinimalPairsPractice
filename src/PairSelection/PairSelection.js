@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import './PairSelection.less';
+
 export default class PairSelection extends Component {
 
     static propTypes = {
@@ -18,7 +20,7 @@ export default class PairSelection extends Component {
 
     render() {
         return <div className="pairSelection">
-            <ul>
+            <ul className="pairSelection-optionList">
             {
                 this.props.allPairs.map((pair, index) => {
                     return <li key={index}

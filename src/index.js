@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MinimalPairs from './MinimalPairs.js';
 
+import './index.less';
+
 const pairs = [
     { name: "beten / Betten", optionOneName: "beten", optionTwoName: "Betten", optionOneAudioUrl: "/audio/german/0beten.ogg", optionTwoAudioUrl: "/audio/german/1Betten.ogg" },
     { name: "fehle / felle", optionOneName: "fehle", optionTwoName: "felle", optionOneAudioUrl: "/audio/german/2fehle.ogg", optionTwoAudioUrl: "/audio/german/3felle.ogg" },
