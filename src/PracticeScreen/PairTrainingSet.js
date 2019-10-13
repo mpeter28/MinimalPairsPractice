@@ -38,19 +38,19 @@ export default class PairTrainingSet extends Component {
 
         if (this.state.waitingToStart) {
             if (this.state.successCount === 0 && this.state.failureCount === 0) { // Start screen
-                return <div>
+                return <div className="pairTrainingSet-content">
                     { this.getStartButton() }
                 </div>;
 
             } else if (this.state.successCount + this.state.failureCount === 20) { // End screen
-                return <div>
+                return <div className="pairTrainingSet-content">
                     { this.getAudioPlayer() }
                     { this.getScoreCard() }
                     { this.getDoneButton() }
                 </div>;
 
             } else { // results screen
-                return <div>
+                return <div className="pairTrainingSet-content">
                     { this.getAudioPlayer() }
                     { this.getResultsFromLastRound() }
                     { this.getScoreCard() }
@@ -59,7 +59,7 @@ export default class PairTrainingSet extends Component {
 
             }
         } else { // guessing screen
-            return <div>
+            return <div className="pairTrainingSet-content">
                 { this.getAudioPlayer() }
                 { this.getGuessControls() }
             </div>;
