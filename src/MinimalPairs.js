@@ -27,9 +27,18 @@ export default class MinimalPairs extends Component {
     render() {
 
         if (this.state.chosenTrainingPair) {
-            return <PairTrainingSet chosenTrainingPair={this.state.chosenTrainingPair}
-                                    trainingPassedHandler={this.trainingPassedHandler()}
-                                    trainingFailedHandler={this.trainingFailedHandler()} />;
+            return (
+                <div>
+                    <PairTrainingSet chosenTrainingPair={this.state.chosenTrainingPair}
+                                     trainingPassedHandler={this.trainingPassedHandler()}
+                                     trainingFailedHandler={this.trainingFailedHandler()} />
+
+                    <PairSelection allPairs={this.props.pairs}
+                                   passedPairs={this.state.passedPairs}
+                                   failedPairs={this.state.failedPairs}
+                                   selectPairHandler={this.selectPairHandler()} />
+                </div>
+            );
         } else {
             return <PairSelection allPairs={this.props.pairs}
                                   passedPairs={this.state.passedPairs}
