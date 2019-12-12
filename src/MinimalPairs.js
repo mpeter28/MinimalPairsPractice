@@ -19,18 +19,25 @@ export default class MinimalPairs extends Component {
     };
 
     state = {
-
+        currentTrainingPair: null,
     };
 
     render() {
-        return <StartScreen startHandler={this.startTrainingHandler()}/>
+        if (!this.state.currentTrainingPair) {
+            return <StartScreen startHandler={this.startTrainingHandler()}/>
+        } else {
+            return null;
+        }
+
 
     }
 
     startTrainingHandler() {
         return () => {
-
-        }
+            this.setState({
+                currentTrainingPair: {foo: "bar"}
+            });
+        };
     }
 
 
