@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import PairTrainingSet from './PracticeScreen/PairTrainingSet.js';
-import PairSelection from './PairSelection/PairSelection.js';
+import StartScreen from './StartScreen/StartScreen.js';
 
 export default class MinimalPairs extends Component {
 
@@ -19,64 +19,19 @@ export default class MinimalPairs extends Component {
     };
 
     state = {
-        chosenTrainingPair: null,
-        passedPairs: [],
-        failedPairs: [],
+
     };
 
     render() {
+        return <StartScreen startHandler={this.startTrainingHandler()}/>
 
-        if (this.state.chosenTrainingPair) {
-            return (
-                <div>
-                    <PairTrainingSet key={this.state.chosenTrainingPair.name}
-                                     chosenTrainingPair={this.state.chosenTrainingPair}
-                                     trainingPassedHandler={this.trainingPassedHandler()}
-                                     trainingFailedHandler={this.trainingFailedHandler()} />
+    }
 
-                    <PairSelection allPairs={this.props.pairs}
-                                   passedPairs={this.state.passedPairs}
-                                   failedPairs={this.state.failedPairs}
-                                   selectPairHandler={this.selectPairHandler()} />
-                </div>
-            );
-        } else {
-            return <PairSelection allPairs={this.props.pairs}
-                                  passedPairs={this.state.passedPairs}
-                                  failedPairs={this.state.failedPairs}
-                                  selectPairHandler={this.selectPairHandler()} />;
+    startTrainingHandler() {
+        return () => {
+
         }
     }
 
-    selectPairHandler() {
-        return (selectPairHandler) => {
-            this.setState({
-                chosenTrainingPair: selectPairHandler
-            });
-        };
-    }
 
-    trainingPassedHandler() {
-        return (selectPairHandler) => {
-            this.setState(state => {
-
-                return {
-                    chosenTrainingPair: null,
-                    passedPairs: state.passedPairs.concat(state.chosenTrainingPair)
-                };
-            });
-        };
-    }
-
-    trainingFailedHandler() {
-        return (selectPairHandler) => {
-            this.setState(state => {
-
-                return {
-                    chosenTrainingPair: null,
-                    failedPairs: state.failedPairs.concat(state.chosenTrainingPair)
-                };
-            });
-        };
-    }
 }
