@@ -20,28 +20,25 @@ export default class MinimalPairs extends Component {
 
     state = {
         currentTrainingPair: null,
-        waitingOnResultsScreen: false,
-        trainingSuccess: false,
-
         pairScores: {},
+        roundNumber: 0,
     };
 
     render() {
         if (!this.state.currentTrainingPair) {
             return <StartScreen startHandler={this.startTrainingHandler()}/>
-        } else if (!this.state.waitingOnResultsScreen) {
-            return <PracticeScreen chosenTrainingPair={this.state.currentTrainingPair}
+        } else {
+            return <PracticeScreen key={this.state.roundNumber}
+                                   chosenTrainingPair={this.state.currentTrainingPair}
                                    trainingPassedHandler={this.trainingPassedHandler()}
                                    trainingFailedHandler={this.trainingFailedHandler()} />;
-        } else {
-            return null;
         }
     }
 
     startTrainingHandler() {
         return () => {
             this.setState({
-                currentTrainingPair: this.props.pairs[0],
+                currentTrainingPair: this.choseNextPair(),
                 waitingOnResultsScreen: false,
             });
         };
@@ -54,9 +51,8 @@ export default class MinimalPairs extends Component {
 
             this.setState({
                 pairScores: newScores,
-                waitingOnResultsScreen: true,
-                trainingSuccess: true,
                 currentTrainingPair: this.choseNextPair(),
+                roundNumber: this.state.roundNumber + 1,
             });
         }
     }
@@ -68,9 +64,8 @@ export default class MinimalPairs extends Component {
 
             this.setState({
                 pairScores: newScores,
-                waitingOnResultsScreen: true,
-                trainingSuccess: false,
                 currentTrainingPair: this.choseNextPair(),
+                roundNumber: this.state.roundNumber + 1,
             });
         }
     }
