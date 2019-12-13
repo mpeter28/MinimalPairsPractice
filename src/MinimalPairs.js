@@ -56,6 +56,7 @@ export default class MinimalPairs extends Component {
                 pairScores: newScores,
                 waitingOnResultsScreen: true,
                 trainingSuccess: true,
+                currentTrainingPair: this.choseNextPair(),
             });
         }
     }
@@ -69,7 +70,19 @@ export default class MinimalPairs extends Component {
                 pairScores: newScores,
                 waitingOnResultsScreen: true,
                 trainingSuccess: false,
+                currentTrainingPair: this.choseNextPair(),
             });
+        }
+    }
+
+    choseNextPair() {
+        while (true) {
+            const index = Math.floor((Math.random() * this.props.pairs.length));
+            const chosenPair = this.props.pairs[index];
+
+            if (!this.state.pairScores[chosenPair.name] || this.state.pairScores[chosenPair.name] < 10) {
+                return chosenPair;
+            }
         }
     }
 
