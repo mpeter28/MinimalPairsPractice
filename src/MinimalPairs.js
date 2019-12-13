@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import PairTrainingSet from './PracticeScreen/PairTrainingSet.js';
+import PracticeScreen from './PracticeScreen/PracticeScreen.js';
 import StartScreen from './StartScreen/StartScreen.js';
 
 export default class MinimalPairs extends Component {
@@ -20,25 +20,54 @@ export default class MinimalPairs extends Component {
 
     state = {
         currentTrainingPair: null,
+        waitingOnResultsScreen: false,
+
+        pairScores: {},
     };
 
     render() {
         if (!this.state.currentTrainingPair) {
             return <StartScreen startHandler={this.startTrainingHandler()}/>
+        } else if (!this.state.waitingOnResultsScreen) {
+            return <PracticeScreen chosenTrainingPair={this.state.currentTrainingPair}
+                                   trainingPassedHandler={this.trainingPassedHandler()}
+                                   trainingFailedHandler={this.trainingFailedHandler()} />;
         } else {
             return null;
         }
-
-
     }
 
     startTrainingHandler() {
         return () => {
             this.setState({
-                currentTrainingPair: {foo: "bar"}
+                currentTrainingPair: this.props.pairs[0],
+                waitingOnResultsScreen: false,
             });
         };
     }
 
+    trainingPassedHandler() {
+        return () => {
+            const newScores = {...this.state.pairScores};
+            newScores[this.state.currentTrainingPair.name] = newScores[this.state.currentTrainingPair.name] + 1;
+
+            this.setState({
+                pairScores: newScores,
+                waitingOnResultsScreen: true,
+            });
+        }
+    }
+
+    trainingFailedHandler() {
+        return () => {
+            const newScores = {...this.state.pairScores};
+            newScores[this.state.currentTrainingPair.name] = newScores[this.state.currentTrainingPair.name] - 1;
+
+            this.setState({
+                pairScores: newScores,
+                waitingOnResultsScreen: true,
+            });
+        }
+    }
 
 }
