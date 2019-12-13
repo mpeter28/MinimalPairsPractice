@@ -19,6 +19,8 @@ export default class PracticeScreen extends Component {
 
     state = {
         useFirstOption: Math.random() > 0.5,
+        success: false,
+        roundDone: false,
     };
 
     render() {
@@ -27,13 +29,14 @@ export default class PracticeScreen extends Component {
 
             <div className="pairTrainingSet-content">
                 { this.getAudioPlayer() }
-                { this.getGuessControls() }
-            </div>;
+                { this.state.roundDone ? this.getResultsFromLastRound() : null }
+                { this.state.roundDone ? this.getRoundOverButton() : this.getGuessControls() }
+            </div>
         </div>;
     }
 
     getAudioPlayer() {
-        return <audio key={this.state.round} controls autoPlay={true} className="pairTrainingSet-audioPlayer">
+        return <audio key={this.props.chosenTrainingPair.name} controls autoPlay={true} className="pairTrainingSet-audioPlayer">
             <source src={this.getTestAudioUrl()} type="audio/ogg" />
             Your browser does not support the audio element.
         </audio>;
@@ -53,6 +56,20 @@ export default class PracticeScreen extends Component {
         </div>;
     }
 
+    getRoundOverButton() {
+        return <div className="pairTrainingSet-controls">
+            <button className="pairTrainingSet-optionOne" onClick={ () => {this.state.success ? this.props.trainingPassedHandler() : this.props.trainingFailedHandler() } }>
+                Next Minimal Pair
+            </button>
+        </div>;
+    }
+
+    getResultsFromLastRound() {
+        return <p className="pairTrainingSet-roundResults">
+            { this.state.success ? 'Correct!' : 'Wrong :(' }
+        </p>;
+    }
+
     getTestAudioUrl() {
         return this.state.useFirstOption
             ? this.props.chosenTrainingPair.optionOneAudioUrl
@@ -61,17 +78,19 @@ export default class PracticeScreen extends Component {
 
     guessOptionOne() {
         return () => {
-            this.state.useFirstOption
-                ? this.props.trainingPassedHandler()
-                : this.props.trainingFailedHandler()
+            this.setState({
+                success: this.state.useFirstOption,
+                roundDone: true,
+            });
         }
     }
 
     guessOptionTwo() {
         return () => {
-            this.state.useFirstOption
-                ? this.props.trainingFailedHandler()
-                : this.props.trainingPassedHandler()
+            this.setState({
+                success: !this.state.useFirstOption,
+                roundDone: true,
+            });
         }
     }
 }

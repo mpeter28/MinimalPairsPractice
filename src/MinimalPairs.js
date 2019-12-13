@@ -21,6 +21,7 @@ export default class MinimalPairs extends Component {
     state = {
         currentTrainingPair: null,
         waitingOnResultsScreen: false,
+        trainingSuccess: false,
 
         pairScores: {},
     };
@@ -54,6 +55,7 @@ export default class MinimalPairs extends Component {
             this.setState({
                 pairScores: newScores,
                 waitingOnResultsScreen: true,
+                trainingSuccess: true,
             });
         }
     }
@@ -66,6 +68,7 @@ export default class MinimalPairs extends Component {
             this.setState({
                 pairScores: newScores,
                 waitingOnResultsScreen: true,
+                trainingSuccess: false,
             });
         }
     }
